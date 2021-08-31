@@ -7,34 +7,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
-
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class PersonDTO {
 
     private Long id;
-    @NotNull
+
+    @NotEmpty
     @Size(min = 2, max = 100)
-    private String fistName;
-    @NotNull
+    private String firstName;
+
+    @NotEmpty
     @Size(min = 2, max = 100)
     private String lastName;
+
+    @NotEmpty
     @CPF
-    @NotNull
     private String cpf;
 
     private String birthDate;
 
     @Valid
-    @NotNull
-    private List<PhoneDTO> phoneList;
-
+    @NotEmpty
+    private List<PhoneDTO> phones;
 }

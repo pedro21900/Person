@@ -39,7 +39,11 @@ public class PersonService {
     }
 
     public List<PersonDTO> findByAll() {
-        return personRepository.findAll().stream().map(person -> personMapper.toDTO(person)).collect(Collectors.toList());
+        return personRepository
+                .findAll()
+                .stream()
+                .map(personMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {
