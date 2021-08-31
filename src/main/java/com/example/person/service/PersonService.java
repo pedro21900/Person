@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -37,8 +38,8 @@ public class PersonService {
         return personRepository.findById(id);
     }
 
-    public List<Person> findByAll() {
-        return personRepository.findAll();
+    public List<PersonDTO> findByAll() {
+        return personRepository.findAll().stream().map(person -> personMapper.toDTO(person)).collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {

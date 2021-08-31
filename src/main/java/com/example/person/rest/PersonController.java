@@ -35,7 +35,7 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> findByAll() {
+    public ResponseEntity<List<PersonDTO>> findByAll() {
         return ResponseEntity.ok(personService.findByAll());
     }
 
