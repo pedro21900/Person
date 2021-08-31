@@ -1,6 +1,7 @@
 package com.example.person.domain.dto;
 
 
+import com.example.person.core.PessoaFisica;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 public class PersonDTO {
 
-    private Long id;
-
     @NotEmpty
     @Size(min = 2, max = 100)
     private String firstName;
@@ -29,7 +28,7 @@ public class PersonDTO {
     private String lastName;
 
     @NotEmpty
-    @CPF
+    @CPF(groups = PessoaFisica.class)
     private String cpf;
 
     private String birthDate;

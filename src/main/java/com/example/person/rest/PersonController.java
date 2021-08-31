@@ -40,7 +40,7 @@ public class PersonController {
     }
 
     @PutMapping
-    public ResponseEntity<MensageDTO> update(@RequestBody PersonDTO personDTO) {
+    public ResponseEntity<MensageDTO> update(@RequestBody @Valid PersonDTO personDTO) {
         return ResponseEntity.ok(personService.uptade(personDTO));
     }
 
