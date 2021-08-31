@@ -35,13 +35,12 @@ public class PersonService {
         return createMessageResponse(salved.getId(), "Created person with ID :");
     }
 
-    public Optional<Person> findById(Long id) throws  PersonNotFoundException{
-        Optional<Person> optionalPerson = personRepository.findById(id);
-        if (optionalPerson.isEmpty()) {
-             throw new PersonNotFoundException(id);
+    public PersonDTO findById(Long id) throws  PersonNotFoundException{
+       Person person=personRepository
+                .findById(id)
+                .orElseThrow(()-> new PersonNotFoundException(id));
 
-        }
-        return optionalPerson;
+        return personMapper.toDTO(person);
     }
 
     public List<PersonDTO> findByAll() {
@@ -52,7 +51,8 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id) throws  PersonNotFoundException{
+        findById(id);
         personRepository.deleteById(id);
     }
 

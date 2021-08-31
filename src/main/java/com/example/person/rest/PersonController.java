@@ -30,7 +30,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Person>> findById(@PathVariable() Long id) throws PersonNotFoundException {
+    public ResponseEntity<PersonDTO> findById(@PathVariable() Long id) throws PersonNotFoundException {
         return ResponseEntity.ok(personService.findById(id));
     }
 
@@ -45,7 +45,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable() Long id) {
+    public ResponseEntity delete(@PathVariable() Long id) throws  PersonNotFoundException{
         personService.deleteById(id);
         return ResponseEntity.ok("Deletado");
     }
