@@ -1,5 +1,6 @@
 package com.example.person.service;
 
+import com.example.person.core.PersonNotFoundException;
 import com.example.person.domain.Person;
 import com.example.person.domain.PersonMapper;
 import com.example.person.domain.dto.MensageDTO;
@@ -34,8 +35,13 @@ public class PersonService {
         return createMessageResponse(salved.getId(), "Created person with ID :");
     }
 
-    public Optional<Person> findById(Long id) {
-        return personRepository.findById(id);
+    public Optional<Person> findById(Long id) throws  PersonNotFoundException{
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        if (optionalPerson.isEmpty()) {
+             throw new PersonNotFoundException(id);
+
+        }
+        return optionalPerson;
     }
 
     public List<PersonDTO> findByAll() {

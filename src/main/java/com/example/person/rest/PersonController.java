@@ -1,5 +1,6 @@
 package com.example.person.rest;
 
+import com.example.person.core.PersonNotFoundException;
 import com.example.person.domain.Person;
 import com.example.person.domain.dto.MensageDTO;
 import com.example.person.domain.dto.PersonDTO;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -28,10 +30,8 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> findById(@PathVariable() Long id) throws NotFoundException {
-        return ResponseEntity.ok(personService
-                .findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Person not found ")));
+    public ResponseEntity<Optional<Person>> findById(@PathVariable() Long id) throws PersonNotFoundException {
+        return ResponseEntity.ok(personService.findById(id));
     }
 
     @GetMapping
