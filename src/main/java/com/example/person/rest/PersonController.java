@@ -40,8 +40,8 @@ public class PersonController {
     }
 
     @PutMapping
-    public ResponseEntity<MensageDTO> update(@RequestBody @Valid PersonDTO personDTO) {
-        return ResponseEntity.ok(personService.uptade(personDTO));
+    public ResponseEntity<MensageDTO> update(@PathVariable() Long id,@RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
+        return ResponseEntity.ok(personService.update(id,personDTO));
     }
 
     @DeleteMapping("/{id}")

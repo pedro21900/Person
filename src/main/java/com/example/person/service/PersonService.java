@@ -20,6 +20,8 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
+    private final PersonMapper personMapper = PersonMapper.INSTANCE;
+
     private MensageDTO createMessageResponse(Long id, String message) {
         return MensageDTO
                 .builder()
@@ -27,18 +29,20 @@ public class PersonService {
                 .build();
     }
 
-    private final PersonMapper personMapper = PersonMapper.INSTANCE;
+    private Person converterDTOToPerson(PersonDTO personDTO) {
+        Person personToSave = personMapper.toModel(personDTO);
+        return personRepository.save(personToSave);
+    }
 
     public MensageDTO insert(PersonDTO personDTO) {
-        Person personToSave = personMapper.toModel(personDTO);
-        Person salved = personRepository.save(personToSave);
+        Person salved = converterDTOToPerson(personDTO);
         return createMessageResponse(salved.getId(), "Created person with ID :");
     }
 
-    public PersonDTO findById(Long id) throws  PersonNotFoundException{
-       Person person=personRepository
+    public PersonDTO findById(Long id) throws PersonNotFoundException {
+        Person person = personRepository
                 .findById(id)
-                .orElseThrow(()-> new PersonNotFoundException(id));
+                .orElseThrow(() -> new PersonNotFoundException(id));
 
         return personMapper.toDTO(person);
     }
@@ -51,14 +55,14 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Long id) throws  PersonNotFoundException{
+    public void deleteById(Long id) throws PersonNotFoundException {
         findById(id);
         personRepository.deleteById(id);
     }
 
-    public MensageDTO uptade(PersonDTO personDTO) {
-        Person personToSave = personMapper.toModel(personDTO);
-        Person salved = personRepository.save(personToSave);
-        return createMessageResponse(salved.getId(), "Update person with ID :");
+    public MensageDTO update(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+        findById(id);
+        Person personToUpdate = converterDTOToPerson(personDTO);
+        return createMessageResponse(personToUpdate.getId(), "Update person with ID :");
     }
 }
