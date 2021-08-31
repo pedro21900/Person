@@ -1,6 +1,9 @@
 package com.example.person.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +31,7 @@ public class Person {
 
     @Column(nullable = false, unique = true)
     private String cpf;
+
 
     @Column(nullable = false)
     private LocalDate birthDate;
