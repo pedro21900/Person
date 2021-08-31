@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
+
 public class MensageDTO {
     
     private String mensage;

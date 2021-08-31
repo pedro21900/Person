@@ -1,13 +1,16 @@
 package com.example.person.service;
 
 import com.example.person.domain.Person;
+import com.example.person.domain.PersonMapper;
 import com.example.person.domain.dto.MensageDTO;
+import com.example.person.domain.dto.PersonDTO;
 import com.example.person.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -15,17 +18,25 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
-    public MensageDTO insert(Person person) {
-        Person ps =personRepository.save(person);
+    private MensageDTO createMessageResponse(Long id, String message) {
         return MensageDTO
                 .builder()
-                .mensage("Create person with ID: "+ps.getId() )
+                .mensage(message + id)
                 .build();
     }
 
-    public Person findById(Long id) {
-        return personRepository.getById(id);
+    private final PersonMapper personMapper = PersonMapper.INSTANCE;
+
+    public MensageDTO insert(PersonDTO personDTO) {
+        Person personToSave = personMapper.toModel(personDTO);
+        Person salved = personRepository.save(personToSave);
+        return createMessageResponse(salved.getId(), "Created person with ID :");
     }
+
+    public Optional<Person> findById(Long id) {
+        return personRepository.findById(id);
+    }
+
     public List<Person> findByAll() {
         return personRepository.findAll();
     }
@@ -34,11 +45,9 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    public MensageDTO uptade(Person person) {
-        Person ps =personRepository.save(person);
-        return MensageDTO
-                .builder()
-                .mensage("Update person with ID: "+ps.getId() )
-                .build();
+    public MensageDTO uptade(PersonDTO personDTO) {
+        Person personToSave = personMapper.toModel(personDTO);
+        Person salved = personRepository.save(personToSave);
+        return createMessageResponse(salved.getId(), "Update person with ID :");
     }
 }

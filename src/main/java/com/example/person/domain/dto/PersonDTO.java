@@ -5,9 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import java.util.List;
 
 @Data
@@ -17,15 +21,20 @@ import java.util.List;
 public class PersonDTO {
 
     private Long id;
-
+    @NotNull
+    @Size(min = 2, max = 100)
     private String fistName;
-
+    @NotNull
+    @Size(min = 2, max = 100)
     private String lastName;
-
+    @CPF
+    @NotNull
     private String cpf;
 
-    private LocalDate birthDate;
+    private String birthDate;
 
+    @Valid
+    @NotNull
     private List<PhoneDTO> phoneList;
 
 }
