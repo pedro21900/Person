@@ -1,11 +1,11 @@
 package com.example.person.domain.dto;
 
 
-import com.example.person.core.PessoaFisica;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.Valid;
@@ -28,7 +28,7 @@ public class PersonDTO {
     private String lastName;
 
     @NotEmpty
-    @CPF(groups = PessoaFisica.class)
+    @CPF
     private String cpf;
 
     private String birthDate;
