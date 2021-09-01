@@ -6,6 +6,7 @@ import com.example.person.domain.PersonMapper;
 import com.example.person.domain.dto.MensageDTO;
 import com.example.person.domain.dto.PersonDTO;
 import com.example.person.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @Service
 public class PersonService {
 

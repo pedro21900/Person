@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/person")
 public class PersonController {
     private final PersonService personService;
 
