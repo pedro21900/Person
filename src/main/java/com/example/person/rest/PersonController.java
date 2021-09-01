@@ -38,8 +38,8 @@ public class PersonController {
     public ResponseEntity<List<PersonDTO>> findByAll() {
         return ResponseEntity.ok(personService.findByAll());
     }
-
-    @PutMapping
+    @ResponseStatus(HttpStatus.UPGRADE_REQUIRED)
+    @PutMapping("/{id}")
     public ResponseEntity<MensageDTO> update(@PathVariable() Long id,@RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
         return ResponseEntity.ok(personService.update(id,personDTO));
     }
